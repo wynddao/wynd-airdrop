@@ -1,5 +1,6 @@
 import { MerkleTree } from "merkletreejs";
 import sha256 from "crypto-js/sha256";
+import { junoConfig, USE_TESTNET } from "./keplrConnect";
 
 // mainnet
 // export const codes = {
@@ -7,12 +8,20 @@ import sha256 from "crypto-js/sha256";
 //   cw20_vesting_airdrop: 334,
 // };
 
-// mainnet
-export const contracts = {
+const mainnetContracts = {
   tokenAddr: "juno1mkw83sv6c7sjdvsaplrzc8yaes9l42p4mhy0ssuxjnyzl87c9eps7ce3m9",
-  airdropAddr: "juno1v99ehkuetkpf0yxdry8ce92yeqaeaa7lyxr2aagkesrw67wcsn8qxpxay0",
+  airdropAddr:
+    "juno1v99ehkuetkpf0yxdry8ce92yeqaeaa7lyxr2aagkesrw67wcsn8qxpxay0",
   stage: 1,
 };
+
+const testnetContracts = {
+  tokenAddr: "TODO",
+  airdropAddr: "TODO",
+  stage: 1,
+};
+
+export const contracts = USE_TESTNET ? testnetContracts : mainnetContracts;
 
 export const getBalance = async (client, address) => {
   return await client.queryContractSmart(contracts.tokenAddr, {
@@ -30,13 +39,23 @@ export const getMerkleProof = (airdrop_data, address) => {
 };
 
 export const hasClaimed = async (client, address) => {
-  const { is_claimed } = await client.queryContractSmart(contracts.airdropAddr, {
-    is_claimed: {
-      stage: 1,
-      address: address,
-    },
-  });
+  const { is_claimed } = await client.queryContractSmart(
+    contracts.airdropAddr,
+    {
+      is_claimed: {
+        stage: 1,
+        address: address,
+      },
+    }
+  );
   return is_claimed;
+};
+
+export const addTokenToKeplr = async () => {
+  return window.keplr.suggestToken(
+    junoConfig.chainId,
+    contracts.tokenAddr
+  );
 };
 
 const leafHash = (entry) => sha256(entry.address + entry.amount).toString();

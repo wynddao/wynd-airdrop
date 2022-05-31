@@ -17,7 +17,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
 // Utils
 import { getClient, junoConfig, USE_TESTNET } from "../../utils/keplrConnect";
-import { hasClaimed, contracts, getMerkleProof } from "../../utils/wynd";
+import { hasClaimed, contracts, getMerkleProof, addTokenToKeplr } from "../../utils/wynd";
 import { CosmWasmClient } from "cosmwasm";
 
 // Wen airdrop?
@@ -50,7 +50,7 @@ const Airdrop = () => {
   const airdrop_ended = new Date().getTime() > AIRDROP_END;
 
   /**
-   * Connect Wallet & Check eligability
+   * Connect Wallet & Check eligibility
    */
   const handleConnect = async () => {
     setClaiming(true);
@@ -67,7 +67,7 @@ const Airdrop = () => {
 
       if (!cd) {
         setError(
-          "You're not eligable to claim WYND Tokens. Please try another address."
+          "You're not eligible to claim WYND Tokens. Please try another address."
         );
       } else if (await hasClaimed(c, address)) {
         setError("You already claimed your tokens!");
@@ -82,7 +82,7 @@ const Airdrop = () => {
   };
 
   /**
-   * Claim if eligable
+   * Claim if eligible
    */
   const handleClaim = async () => {
     if (!claimData) {
@@ -92,6 +92,7 @@ const Airdrop = () => {
     } else {
       try {
         setClaiming(true);
+        await addTokenToKeplr();
         const msg = {
           claim: {
             amount: claimData.amount.toString(),
@@ -188,7 +189,7 @@ const Airdrop = () => {
           {claimData.length}
           {!claiming && Object.keys(claimData).length === 0 && (
             <Button variant="outlined" sx={{ mt: 3 }} onClick={handleConnect}>
-              Connect Wallet & Check eligibality
+              Connect Wallet & Check eligibility
             </Button>
           )}
           {Object.keys(claimData).length > 0 && (
