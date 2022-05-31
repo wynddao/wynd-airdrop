@@ -2,9 +2,22 @@ import * as React from "react";
 import { Container, Grid, Link, Typography } from "@mui/material";
 import Layout from "../layout";
 import Airdrop from "../components/Airdrop";
-
-import { styles } from "./styles";
+import BackgroundImage from "../images/background.png";
 import { StaticImage } from "gatsby-plugin-image";
+
+const styles = {
+  background: {
+    minHeight: "100vh",
+    minWidth: "100vw",
+    backgroundImage: `url(${BackgroundImage})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "65%",
+  },
+  logoWrapper: {
+    textAlign: "center",
+    paddingTop: "28px",
+  },
+};
 
 const IndexPage = () => {
   return (
