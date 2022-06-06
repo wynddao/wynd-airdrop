@@ -29,13 +29,17 @@ export const getBalance = async (client, address) => {
   });
 };
 
-export const getMerkleProof = (airdrop_data, address) => {
+export const getMerkleProof = (airdrop_data, address, slow) => {
   const { entries, prefixes, chunk } = airdrop_data;
   const index = entries.findIndex((x) => x.address === address);
   if (index < 0) {
     throw new Error(`Address ${address} not found`);
   }
-  return quickProof(index, entries, prefixes, chunk);
+  if (slow) {
+    return slowProof(index, entries);
+  } else {
+    return quickProof(index, entries, prefixes, chunk);
+  }
 };
 
 export const hasClaimed = async (client, address) => {
@@ -89,4 +93,13 @@ function quickProof(index, entries, prefixes, chunk) {
   // if there is a duplicate, remove it
   console.log(`>>> Quickproof in ${Date.now() - time} ms`);
   return combined;
+}
+
+function slowProof(index, entries) {
+  const leaves = entries.map(leafHash);
+  const tree = new MerkleTree(leaves, sha256, { sort: true });
+  const proof = tree
+    .getHexProof(leafHash(entries[index]))
+    .map((v) => v.replace("0x", ""));
+  return proof;
 }
