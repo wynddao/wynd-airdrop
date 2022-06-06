@@ -17,7 +17,12 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
 // Utils
 import { getClient, junoConfig, USE_TESTNET } from "../../utils/keplrConnect";
-import { hasClaimed, contracts, getMerkleProof, addTokenToKeplr } from "../../utils/wynd";
+import {
+  hasClaimed,
+  contracts,
+  getMerkleProof,
+  addTokenToKeplr,
+} from "../../utils/wynd";
 import { CosmWasmClient } from "cosmwasm";
 
 // Wen airdrop?
@@ -35,6 +40,7 @@ const Airdrop = () => {
   const [client, setClient] = useState(null); // Signing CosmWasm Client
   const [userAddress, setUserAddress] = useState(null); // User Wallet Address
   const [totalClaimed, setTotalClaimed] = useState(0); // Total Claimed in this airdrop stage
+  const [totalUnclaimed, setTotalUnclaimed] = useState(0);
   const [error, setError] = useState(null); // Error?
   const [success, setSuccess] = useState(null); // Success?
   const [claiming, setClaiming] = useState(false); // Loading yes/no
@@ -81,10 +87,14 @@ const Airdrop = () => {
     setClaiming(false);
   };
 
+  const handleClaimSlow = () => handleClaim(true);
+
+  const handleClaimFast = () => handleClaim(false);
+
   /**
    * Claim if eligible
    */
-  const handleClaim = async () => {
+  const handleClaim = async (slow) => {
     if (!claimData) {
       setError(
         "This address is not eligible. Try connecting another address from Keplr"
@@ -96,7 +106,7 @@ const Airdrop = () => {
         const msg = {
           claim: {
             amount: claimData.amount.toString(),
-            proof: getMerkleProof(airdrop_data, userAddress),
+            proof: getMerkleProof(airdrop_data, userAddress, slow),
             stage: 1,
           },
         };
@@ -123,12 +133,11 @@ const Airdrop = () => {
         } else {
           setError("Unknown error");
         }
-
-        setClaiming(false);
       } catch (e) {
-        setClaiming(false);
         setError(e.message);
       }
+
+      setClaiming(false);
     }
   };
 
@@ -144,8 +153,9 @@ const Airdrop = () => {
           total_claimed: { stage: 1 },
         });
 
-        if (data.total_claimed > 0) {
-          setTotalClaimed(data.total_claimed / 1000000);
+        if (data.claimed > 0) {
+          setTotalClaimed(data.claimed / 1000000);
+          setTotalUnclaimed(data.total / 1000000);
         }
       } catch (error) {
         console.error(error);
@@ -173,8 +183,12 @@ const Airdrop = () => {
           </Grid>
           <Grid item xs={6}>
             <ProgressBar
-              completed={((100 * totalClaimed) / 108000000).toFixed(2)}
-              customLabel=""
+              completed={((100 * totalClaimed) / totalUnclaimed).toFixed(2)}
+              customLabel={
+                ((100 * totalClaimed) / totalUnclaimed).toFixed(2) + "%"
+              }
+              bgColor="#69E166"
+              labelColor="black"
             />
           </Grid>
         </Grid>
@@ -200,9 +214,20 @@ const Airdrop = () => {
                 <strong>{claimData.amount / 1000000} $WYND</strong>!
               </Typography>
               {airdrop_started && (
-                <Button variant="outlined" onClick={handleClaim}>
-                  Claim now!
-                </Button>
+                <>
+                  <Button variant="outlined" onClick={handleClaimFast}>
+                    Claim now!
+                  </Button>
+                  <br />
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={handleClaimSlow}
+                    sx={{ mt: 3 }}
+                  >
+                    Slow claim (if you get errors)
+                  </Button>
+                </>
               )}
             </>
           )}
