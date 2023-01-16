@@ -166,7 +166,7 @@ const Airdrop = () => {
 
   return (
     <>
-      <Typography variant="h2" sx={{ mt: 2 }}>
+      <Typography variant="h2" sx={{ mt: 2 }} color="white">
         Airdrop will {airdrop_started ? "end" : "start"} in:
       </Typography>
       {!airdrop_ended && (
@@ -177,7 +177,7 @@ const Airdrop = () => {
       {airdrop_started && (
         <Grid sx={{ mt: 3 }} container>
           <Grid item xs={6}>
-            <Typography variant="body2">
+            <Typography variant="body2" color="white">
               Total claimed: {(totalClaimed / 1000000).toFixed(1)}M $WYND
             </Typography>
           </Grid>

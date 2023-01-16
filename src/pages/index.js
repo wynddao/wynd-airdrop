@@ -9,6 +9,7 @@ const styles = {
   background: {
     minHeight: "100vh",
     minWidth: "100vw",
+    background: "#131222",
     backgroundImage: `url(${BackgroundImage})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "65%",
@@ -32,8 +33,10 @@ const IndexPage = () => {
               <StaticImage src="../images/mascot.png" alt="Wynd Mascot" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="h1">WYND Airdrop</Typography>
-              <Typography variant="body1" sx={{ mt: 3 }}>
+              <Typography variant="h1" color="white">
+                WYND Airdrop
+              </Typography>
+              <Typography color="white" variant="body1" sx={{ mt: 3 }}>
                 All airdropped tokens will be vesting, meaning that they can be
                 used for voting and staking from day one, but it will take a
                 full year until they can all be freely transferred and sold. For
@@ -44,7 +47,8 @@ const IndexPage = () => {
                   target="_blank"
                 >
                   Fairdrop Docs
-                </Link>.
+                </Link>
+                .
               </Typography>
               <Airdrop />
             </Grid>

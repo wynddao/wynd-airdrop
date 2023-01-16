@@ -1,6 +1,6 @@
 import { setupWebKeplr, GasPrice } from "cosmwasm";
 
-export const USE_TESTNET = false;
+export const USE_TESTNET = true;
 
 const junoMainnetConfig = {
   chainId: "juno-1",
@@ -11,8 +11,8 @@ const junoMainnetConfig = {
 };
 
 const junoTestConfig = {
-  chainId: "uni-3",
-  rpcEndpoint: "https://rpc.uni.juno.deuslabs.fi:443",
+  chainId: "uni-5",
+  rpcEndpoint: "https://juno-uni-5.mib.tech:443",
   prefix: "juno",
   gasPrice: GasPrice.fromString("0.03ujunox"),
   feeToken: "ujunox",
@@ -21,9 +21,9 @@ const junoTestConfig = {
 export const junoConfig = USE_TESTNET ? junoTestConfig : junoMainnetConfig;
 
 export const keplrChainInfo = {
-  chainId: "uni-2",
+  chainId: "uni-5",
   chainName: "Juno Uni",
-  rpc: "https://rpc.uni.juno.deuslabs.fi:443",
+  rpc: "https://juno-uni-5.mib.tech",
   rest: "https://lcd.uni.juno.deuslabs.fi:443",
   stakeCurrency: { coinDenom: "JUNOX", coinMinimalDenom: "ujunox", coinDecimals: 6 },
   bip44: { coinType: 118 },
