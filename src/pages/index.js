@@ -42,15 +42,10 @@ const IndexPage = () => {
                 All airdropped tokens will be vesting, meaning that they can be
                 used for voting and staking from day one, but it will take a
                 full year until they can all be freely transferred and sold. For
-                more information about the Fairdrop and its distribution please
-                check out{" "}
-                <Link
-                  href="https://docs.wynddao.com/token/airdrop.html"
-                  target="_blank"
-                >
-                  Fairdrop Docs
+                more information check{" "}
+                <Link href="https://www.rawdao.zone/vote/18" target="_blank">
+                  RAW DAO's Prop 18
                 </Link>
-                .
               </Typography>
               <Airdrop />
             </Grid>

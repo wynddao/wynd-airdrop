@@ -187,7 +187,7 @@ const Airdrop = () => {
               customLabel={
                 ((100 * totalClaimed) / totalUnclaimed).toFixed(2) + "%"
               }
-              bgColor="#69E166"
+              bgColor="linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)"
               labelColor="black"
             />
           </Grid>
