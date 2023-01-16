@@ -208,6 +208,7 @@ const Airdrop = () => {
                 background:
                   "linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)",
                 color: "white",
+                border: "white 1px solid",
               }}
               onClick={handleConnect}
               bgClip="text"
