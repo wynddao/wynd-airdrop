@@ -202,7 +202,17 @@ const Airdrop = () => {
           )}
           {claimData.length}
           {!claiming && Object.keys(claimData).length === 0 && (
-            <Button variant="outlined" sx={{ mt: 3 }} onClick={handleConnect}>
+            <Button
+              sx={{
+                mt: 3,
+                background:
+                  "linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)",
+                color: "white",
+              }}
+              onClick={handleConnect}
+              bgClip="text"
+              display="inline"
+            >
               Connect Wallet & Check eligibility
             </Button>
           )}

@@ -4,6 +4,7 @@ import Layout from "../layout";
 import Airdrop from "../components/Airdrop";
 import BackgroundImage from "../images/background.png";
 import { StaticImage } from "gatsby-plugin-image";
+import { Helmet } from "react-helmet";
 
 const styles = {
   background: {
@@ -23,6 +24,7 @@ const styles = {
 const IndexPage = () => {
   return (
     <main style={styles.background}>
+      <Helmet title="WYND DAO | RAW Airdrop" defer={false} />
       <Layout>
         <Container>
           <div style={styles.logoWrapper}>
