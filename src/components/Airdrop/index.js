@@ -47,9 +47,7 @@ const Airdrop = () => {
   const [claimData, setClaimData] = useState({}); // Merkle Claim Data
 
   // Airdrop file
-  const airdrop_data = USE_TESTNET
-    ? require(`../../data/sorted_airdrop_testnet.json`)
-    : require(`../../data/sorted_airdrop.json`);
+  const airdrop_data = require(`../../data/sorted_airdrop.json`);
 
   // Airdrop started?
   const airdrop_started = new Date().getTime() > AIRDROP_START;
@@ -150,7 +148,7 @@ const Airdrop = () => {
         console.log(junoConfig.rpcEndpoint);
         var client = await CosmWasmClient.connect(junoConfig.rpcEndpoint);
         var data = await client.queryContractSmart(contracts.airdropAddr, {
-          total_claimed: { stage: 1 },
+          total_claimed: { stage: 2 },
         });
 
         if (data.claimed > 0) {
@@ -219,7 +217,7 @@ const Airdrop = () => {
           )}
           {Object.keys(claimData).length > 0 && (
             <>
-              <Typography variant="body1" sx={{ textAlign: "left", mt: 3 }}>
+              <Typography variant="body1" sx={{ textAlign: "left", mt: 3, color: "white" }}>
                 Your account with the address <strong>{userAddress}</strong> is
                 eligible for a total of{" "}
                 <strong>{claimData.amount / 1000000} $WYND</strong>!

@@ -18,7 +18,7 @@ const junoTestConfig = {
   feeToken: "ujunox",
 };
 
-export const junoConfig = USE_TESTNET ? junoTestConfig : junoMainnetConfig;
+export const junoConfig = junoMainnetConfig;
 
 export const keplrChainInfo = {
   chainId: "uni-5",
