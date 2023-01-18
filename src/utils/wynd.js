@@ -47,7 +47,7 @@ export const hasClaimed = async (client, address) => {
     contracts.airdropAddr,
     {
       is_claimed: {
-        stage: 1,
+        stage: 2,
         address: address,
       },
     }
