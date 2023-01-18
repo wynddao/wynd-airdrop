@@ -146,15 +146,15 @@ const Airdrop = () => {
     async function load() {
       try {
         console.log(junoConfig.rpcEndpoint);
+        // make use we have no NaN values
+        setTotalUnclaimed(500000);
         var client = await CosmWasmClient.connect(junoConfig.rpcEndpoint);
         var data = await client.queryContractSmart(contracts.airdropAddr, {
           total_claimed: { stage: 2 },
         });
-
-        if (data.claimed > 0) {
-          setTotalClaimed(data.claimed / 1000000);
-          setTotalUnclaimed(data.total / 1000000);
-        }
+        setTotalClaimed(data.claimed / 1000000);
+        setTotalUnclaimed(data.total / 1000000);
+        console.log(`Got rpc response: ${data}`);
       } catch (error) {
         console.error(error);
       }
