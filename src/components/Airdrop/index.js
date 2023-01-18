@@ -105,7 +105,7 @@ const Airdrop = () => {
           claim: {
             amount: claimData.amount.toString(),
             proof: getMerkleProof(airdrop_data, userAddress, slow),
-            stage: 1,
+            stage: 2,
           },
         };
 
@@ -237,7 +237,7 @@ const Airdrop = () => {
             </Alert>
           )}
           {success && (
-            <Alert sx={{ mt: 2 }} severity="success">
+            <Alert sx={{ mt: 2, textAlign: "left" }} severity="success">
               {success}
             </Alert>
           )}
