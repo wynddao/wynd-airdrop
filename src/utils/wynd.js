@@ -12,7 +12,7 @@ const mainnetContracts = {
   tokenAddr: "juno1mkw83sv6c7sjdvsaplrzc8yaes9l42p4mhy0ssuxjnyzl87c9eps7ce3m9",
   airdropAddr:
     "juno1v99ehkuetkpf0yxdry8ce92yeqaeaa7lyxr2aagkesrw67wcsn8qxpxay0",
-  stage: 1,
+  stage: 2,
 };
 
 const testnetContracts = {
@@ -21,7 +21,7 @@ const testnetContracts = {
   stage: 1,
 };
 
-export const contracts = USE_TESTNET ? testnetContracts : mainnetContracts;
+export const contracts = mainnetContracts;
 
 export const getBalance = async (client, address) => {
   return await client.queryContractSmart(contracts.tokenAddr, {
@@ -47,7 +47,7 @@ export const hasClaimed = async (client, address) => {
     contracts.airdropAddr,
     {
       is_claimed: {
-        stage: 1,
+        stage: 2,
         address: address,
       },
     }

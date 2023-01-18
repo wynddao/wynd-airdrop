@@ -12,34 +12,34 @@ const Countdown = (props) => {
     return (
       <Grid container sx={{ padding: 0, mt: 3 }}>
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle1" sx={{ textAlign: "center", color: "white" }}>
             {days}
           </Typography>
-          <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle2" sx={{ textAlign: "center", color: "white" }}>
             Days
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle1" sx={{ textAlign: "center", color: "white" }}>
             {hours}
           </Typography>
-          <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle2" sx={{ textAlign: "center", color: "white" }}>
             Hours
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle1" sx={{ textAlign: "center", color: "white" }}>
             {minutes}
           </Typography>
-          <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle2" sx={{ textAlign: "center", color: "white" }}>
             Minutes
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle1" sx={{ textAlign: "center", color: "white" }}>
             {seconds}
           </Typography>
-          <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
+          <Typography variant="subtitle2" sx={{ textAlign: "center", color: "white" }}>
             Seconds
           </Typography>
         </Grid>

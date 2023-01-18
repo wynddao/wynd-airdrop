@@ -31,7 +31,7 @@ import { CosmWasmClient } from "cosmwasm";
 
 // Real dates - June 6th 12:00 UTC to Aug 31st 12:00 UTC
 const AIRDROP_START = 1654516800000;
-const AIRDROP_END = 1661947200000;
+const AIRDROP_END = 1689415200000;
 
 /**
  * Airdrop Component
@@ -47,9 +47,7 @@ const Airdrop = () => {
   const [claimData, setClaimData] = useState({}); // Merkle Claim Data
 
   // Airdrop file
-  const airdrop_data = USE_TESTNET
-    ? require(`../../data/sorted_airdrop_testnet.json`)
-    : require(`../../data/sorted_airdrop.json`);
+  const airdrop_data = require(`../../data/sorted_airdrop.json`);
 
   // Airdrop started?
   const airdrop_started = new Date().getTime() > AIRDROP_START;
@@ -107,7 +105,7 @@ const Airdrop = () => {
           claim: {
             amount: claimData.amount.toString(),
             proof: getMerkleProof(airdrop_data, userAddress, slow),
-            stage: 1,
+            stage: 2,
           },
         };
 
@@ -148,15 +146,15 @@ const Airdrop = () => {
     async function load() {
       try {
         console.log(junoConfig.rpcEndpoint);
+        // make use we have no NaN values
+        setTotalUnclaimed(500000);
         var client = await CosmWasmClient.connect(junoConfig.rpcEndpoint);
         var data = await client.queryContractSmart(contracts.airdropAddr, {
-          total_claimed: { stage: 1 },
+          total_claimed: { stage: 2 },
         });
-
-        if (data.claimed > 0) {
-          setTotalClaimed(data.claimed / 1000000);
-          setTotalUnclaimed(data.total / 1000000);
-        }
+        setTotalClaimed(data.claimed / 1000000);
+        setTotalUnclaimed(data.total / 1000000);
+        console.log(`Got rpc response: ${data}`);
       } catch (error) {
         console.error(error);
       }
@@ -166,7 +164,7 @@ const Airdrop = () => {
 
   return (
     <>
-      <Typography variant="h2" sx={{ mt: 2 }}>
+      <Typography variant="h2" sx={{ mt: 2 }} color="white">
         Airdrop will {airdrop_started ? "end" : "start"} in:
       </Typography>
       {!airdrop_ended && (
@@ -177,7 +175,7 @@ const Airdrop = () => {
       {airdrop_started && (
         <Grid sx={{ mt: 3 }} container>
           <Grid item xs={6}>
-            <Typography variant="body2">
+            <Typography variant="body2" color="white">
               Total claimed: {(totalClaimed / 1000000).toFixed(1)}M $WYND
             </Typography>
           </Grid>
@@ -187,8 +185,8 @@ const Airdrop = () => {
               customLabel={
                 ((100 * totalClaimed) / totalUnclaimed).toFixed(2) + "%"
               }
-              bgColor="#69E166"
-              labelColor="black"
+              bgColor="linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)"
+              labelColor="white"
             />
           </Grid>
         </Grid>
@@ -202,30 +200,32 @@ const Airdrop = () => {
           )}
           {claimData.length}
           {!claiming && Object.keys(claimData).length === 0 && (
-            <Button variant="outlined" sx={{ mt: 3 }} onClick={handleConnect}>
+            <Button
+              sx={{
+                mt: 3,
+                background:
+                  "linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)",
+                color: "white",
+                border: "white 1px solid",
+              }}
+              onClick={handleConnect}
+              bgClip="text"
+              display="inline"
+            >
               Connect Wallet & Check eligibility
             </Button>
           )}
           {Object.keys(claimData).length > 0 && (
             <>
-              <Typography variant="body1" sx={{ textAlign: "left", mt: 3 }}>
+              <Typography variant="body1" sx={{ textAlign: "left", mt: 3, color: "white" }}>
                 Your account with the address <strong>{userAddress}</strong> is
                 eligible for a total of{" "}
                 <strong>{claimData.amount / 1000000} $WYND</strong>!
               </Typography>
               {airdrop_started && (
                 <>
-                  <Button variant="outlined" onClick={handleClaimFast}>
+                  <Button variant="outlined" onClick={handleClaimSlow}>
                     Claim now!
-                  </Button>
-                  <br />
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={handleClaimSlow}
-                    sx={{ mt: 3 }}
-                  >
-                    Slow claim (if you get errors)
                   </Button>
                 </>
               )}
@@ -237,7 +237,7 @@ const Airdrop = () => {
             </Alert>
           )}
           {success && (
-            <Alert sx={{ mt: 2 }} severity="success">
+            <Alert sx={{ mt: 2, textAlign: "left" }} severity="success">
               {success}
             </Alert>
           )}
