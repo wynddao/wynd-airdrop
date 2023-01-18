@@ -186,7 +186,7 @@ const Airdrop = () => {
                 ((100 * totalClaimed) / totalUnclaimed).toFixed(2) + "%"
               }
               bgColor="linear-gradient(90deg, rgba(113,204,152,1) 0%, rgba(28,175,237,1) 100%)"
-              labelColor="black"
+              labelColor="white"
             />
           </Grid>
         </Grid>

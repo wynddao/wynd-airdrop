@@ -4,7 +4,7 @@ export const USE_TESTNET = true;
 
 const junoMainnetConfig = {
   chainId: "juno-1",
-  rpcEndpoint: "https://rpc-juno.itastakers.com:443",
+  rpcEndpoint: "https://rpc-juno.mib.tech:443",
   prefix: "juno",
   gasPrice: GasPrice.fromString("0.003ujuno"),
   feeToken: "ujuno",
