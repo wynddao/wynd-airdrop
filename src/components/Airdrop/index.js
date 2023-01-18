@@ -176,7 +176,7 @@ const Airdrop = () => {
         <Grid sx={{ mt: 3 }} container>
           <Grid item xs={6}>
             <Typography variant="body2" color="white">
-              Total claimed: {(totalClaimed / 1000000).toFixed(1)}M $WYND
+            Total claimed: {(totalClaimed / 1000).toFixed(1)}K $WYND
             </Typography>
           </Grid>
           <Grid item xs={6}>

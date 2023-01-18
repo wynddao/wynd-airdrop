@@ -1,6 +1,6 @@
 import { setupWebKeplr, GasPrice } from "cosmwasm";
 
-export const USE_TESTNET = true;
+export const USE_TESTNET = false;
 
 const junoMainnetConfig = {
   chainId: "juno-1",
