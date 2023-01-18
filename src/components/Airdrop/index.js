@@ -31,7 +31,7 @@ import { CosmWasmClient } from "cosmwasm";
 
 // Real dates - June 6th 12:00 UTC to Aug 31st 12:00 UTC
 const AIRDROP_START = 1654516800000;
-const AIRDROP_END = 1661947200000;
+const AIRDROP_END = 1689415200000;
 
 /**
  * Airdrop Component
@@ -226,17 +226,8 @@ const Airdrop = () => {
               </Typography>
               {airdrop_started && (
                 <>
-                  <Button variant="outlined" onClick={handleClaimFast}>
+                  <Button variant="outlined" onClick={handleClaimSlow}>
                     Claim now!
-                  </Button>
-                  <br />
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={handleClaimSlow}
-                    sx={{ mt: 3 }}
-                  >
-                    Slow claim (if you get errors)
                   </Button>
                 </>
               )}
